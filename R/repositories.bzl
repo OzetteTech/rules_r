@@ -48,7 +48,6 @@ def _r_repository_impl(rctx):
     if rctx.attr.build_file:
         rctx.symlink(rctx.attr.build_file, "BUILD.bazel")
         return
-
     args = dict(rctx.attr.razel_args)
     if rctx.attr.pkg_type == "binary":
         args["pkg_bin_archive"] = archive_basename
@@ -65,7 +64,8 @@ buildify({args})
         "Rscript",
         "--vanilla",
         _razel_tmp_script_name,
-    ])
+    ],
+    quiet=False)
     if exec_result.return_code:
         fail("Failed to generate BUILD file: \n%s\n%s" % (exec_result.stdout, exec_result.stderr))
     if exec_result.stderr:

@@ -97,7 +97,6 @@ buildify <- function(pkg_directory = ".", pkg_bin_archive = NULL,
     pkg_vec <- gsub("\n", "", pkg_vec)
     pkg_vec <- trimws(pkg_vec, which = "both")
     pkg_vec <- pkg_vec[!pkg_vec %in% c("", "R", base_pkgs)]
-
     return(pkg_vec)
   }
   dep_targets <- function(deps) {
@@ -105,8 +104,9 @@ buildify <- function(pkg_directory = ".", pkg_bin_archive = NULL,
     if (length(deps) == 0) {
       return('[],\n')
     }
-    dep_targets <- paste0(sprintf("        \"@%s\",\n",
-                                  paste0(repo_name_prefix, gsub("\\.", "_", deps))),
+    # Modified to output a deps label in format @repository//package:target rather than just @repository
+    dep_targets <- paste0(sprintf("        \"@%s//%s:%s\",\n",
+                                  paste0(repo_name_prefix, gsub("\\.", "_", deps)),deps,deps),
                           collapse="")
     return(sprintf('[\n%s    ],\n', dep_targets))
   }
