@@ -176,14 +176,14 @@ def _cc_deps(ctx, instrumented):
     for i in system_includes:
         c_cpp_flags += ["-isystem " + root_path + i]
     for i in includes:
-        c_cpp_flags += ["-I " + root_path + i]
+        c_cpp_flags += ["-I" + root_path + i]
 
     for i in _strip_path_prefixes(quote_includes, bin_dir, gen_dir):
         c_cpp_flags_short += ["-iquote " + root_path + i]
     for i in _strip_path_prefixes(system_includes, bin_dir, gen_dir):
         c_cpp_flags_short += ["-isystem " + root_path + i]
     for i in _strip_path_prefixes(includes, bin_dir, gen_dir):
-        c_cpp_flags_short += ["-I " + root_path + i]
+        c_cpp_flags_short += ["-I" + root_path + i]
 
     # Note that clang has multiple code coverage implementations. covr can only
     # use the gcc compatible implementation based on DebugInfo.  This might be
